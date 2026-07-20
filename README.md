@@ -12,7 +12,7 @@ Phase initiale — développement actif. Priorités à court terme : exposer les
 
 Technologies principales
 -----------------------
-- Python 3.10+
+- Python 3.12+
 - Uvicorn (ASGI server)
 - ORM (ex. SQLAlchemy) + Alembic pour les migrations
 - Mako pour templates (présent)
@@ -21,7 +21,7 @@ Technologies principales
 Prérequis
 ---------
 - Git
-- Python 3.10 ou supérieur
+- Python 3.12 ou supérieur
 - Une base de données (Postgres recommandé)
 - Docker (optionnel)
 
