@@ -21,7 +21,7 @@ class User(SQLModel, table=True):
     
     is_active: bool = Field(default=True)
     
-    is_verfied: bool = Field(
+    is_verified: bool = Field(
         default=False,
         description="Email vérifié"
     )
