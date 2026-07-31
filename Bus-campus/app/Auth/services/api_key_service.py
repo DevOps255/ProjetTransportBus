@@ -2,19 +2,22 @@ import hashlib
 import secrets
 from datetime import datetime, timezone
 
-from app.core.config import settings
-from app.Auth.services.password_service import hash_password, verify_password
+from core.config import settings
+from Auth.services.password_service import hash_password, verify_password
 
 
 def generate_api_key() ->  tuple[str, str, str]:
     
-    random_bytes = secrets.token_urlsafe(settings.api_key_key_length)
+    random_bytes = str(secrets.token_urlsafe(settings.api_key_key_length))
     
-    raw_key = settings.api_key_prefix, random_bytes
+    raw_key =  f"{settings.api_key_prefix}{random_bytes}"
     
     key_prefix= random_bytes[:8]
     
-    hashed_key= hash_password(raw_key)
+    hashed_key= hash_password(str(raw_key))
+    
+    return key_prefix, raw_key, hashed_key
+    
     
 def verify_api_key(raw_key: str, hashed_key: str ) -> bool:
     

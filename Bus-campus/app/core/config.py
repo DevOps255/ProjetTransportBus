@@ -5,18 +5,15 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str
 
-    DATABASE_URL_SYNC:str 
+    DATABASE_URL_SYNC:str
 
 
-    #configuration de redis
+    # configuration de redis
 
     redis_url: str
-
     # JWT
-
-    JWT_private_key: str 
     
-    JWT_SECRET_KEY: str 
+    JWT_SECRET_KEY: str
     
     
     
@@ -36,7 +33,7 @@ class Settings(BaseSettings):
     fixée en variable d'environnement 3
     """
 
-    jwt_algorithm: str = "RS256"
+    jwt_algorithm: str = "HS256"
 
     jwt_access_token_expire_minutes: int = 30
     jwt_refresh_token_expire: int = 7

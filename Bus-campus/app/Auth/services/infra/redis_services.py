@@ -1,7 +1,7 @@
 import json
 import logging
-from app.Auth.services.infra.redis_client import get_redis, logger
-from app.core.config import settings
+from Auth.services.infra.redis_client import get_redis, logger
+from core.config import settings
 
 import redis.asyncio as aioredis
 
@@ -22,7 +22,7 @@ async def blacklist_token(jti:str, expires_in_seconds:int) -> None:
     logger.info(f"Token blacklisté : jti={jti[:8]}..., TTL= {expires_in_seconds}s")
     
 
-async def is_blacklisted(jti:str) -> bool:
+async def is_token_blacklisted(jti:str) -> bool:
     
     redis = await get_redis() 
     
@@ -86,14 +86,14 @@ async def increment_login_attempt(ip_adresse: str) -> int:
 async def get_login_attempts(ip_adresse: str) -> int:
     
     redis = await get_redis()   
-    key = f"login:attempt:{ip_adresse}" 
+    key = f"auth:login_attempts:{ip_adresse}" 
     value = await redis.get(key) 
     return int(value) if value is not None else 0
     
 async def reset_login_attempts(ip_adresse:str) -> None:
     
     redis = await get_redis()
-    key = f"reset:attempts:{ip_adresse}"
+    key = f"auth:login_attempts:{ip_adresse}"
     
     await redis.delete(key)
 

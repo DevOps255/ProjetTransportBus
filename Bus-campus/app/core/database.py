@@ -8,7 +8,7 @@ async_sessionmaker, create_async_engine,
 from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel
 
-from app.core.config import settings
+from core.config import settings
 
 engine = create_async_engine(
     settings.DATABASE_URL,
@@ -43,3 +43,10 @@ def create_table() -> None:
             await  conn.run_sync(SQLModel.metadata.create_all)
 
     asyncio.run(_create())
+
+#Si votre choix se porte sur sqlite
+async def create_mod()-> None:
+    async with engine.begin() as conn:
+        await conn.run_sync(SQLModel.metadata.create_all)
+    
+    

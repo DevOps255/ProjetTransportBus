@@ -3,15 +3,15 @@ import logging
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
-from app.Auth.models import User
-from app.Auth.services.password_service import hash_password
+from Auth.models import User
+from Auth.services.password_service import hash_password
 
 
-from app.Auth.schemas import(
+from Auth.schemas import(
     UserRegisterRequest,
     UserResponse
 )
-from app.Auth.services.user_services.AuthError import AuthError
+from Auth.services.user_services.AuthError import AuthError
 
 
 
@@ -22,12 +22,12 @@ logger = logging.getLogger("Auth.user")
 
 async def register_user(request:UserRegisterRequest, session:AsyncSession) -> UserResponse:
     
-    existing = await session.excute(
+    existing = await session.execute(
         select(User)
         .where(User.email == request.email)
     ) 
     
-    if existing.scalar_one_or_none is not None:
+    if existing.scalar_one_or_none() is not None:
         raise AuthError(
             "un compte avec cet email existe déjà",
             f"duplicate email at registration: {request.email}"

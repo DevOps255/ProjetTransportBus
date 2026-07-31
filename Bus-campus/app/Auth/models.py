@@ -54,7 +54,7 @@ class Apikey(SQLModel, table=True):
     
     is_active: bool = Field(default=True)
     
-    expire_at: datetime = Field(default=None)
+    expires_at: datetime = Field(default=None)
     
     last_used_at: datetime | None = Field(default=None)
     
@@ -73,7 +73,7 @@ class RefreshToken(SQLModel, table=True):
     
     is_revoked: bool = Field(default=False)
     
-    expire_at: datetime = Field()
+    expires_at: datetime = Field()
     
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     

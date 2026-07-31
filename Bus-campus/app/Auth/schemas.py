@@ -19,14 +19,13 @@ class UserLoginRequest(BaseModel):
     email: EmailStr
     password: str = Field(min_length=1, max_length=128)    
     
-    
  
 class TokenResponse(BaseModel):
     
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
-    expire_in: int
+    expires_in: int
      
      
 class UserResponse(BaseModel):
@@ -38,12 +37,15 @@ class UserResponse(BaseModel):
     is_verified: bool
     created_at: datetime
     
-   
+class RefreshRequest(BaseModel):
+    
+    refresh_token: str   
+    
 class ApiKeyCreateRequest(BaseModel):
     
     name: str = Field(min_length=1, max_length=100)
     
-    expire_at: datetime | None = Field(default=None)
+    expires_at: datetime | None = Field(default=None)
     
   
 class ApiKeyCreateResponse(BaseModel):
@@ -52,7 +54,7 @@ class ApiKeyCreateResponse(BaseModel):
     name: str
     raw_key: str
     key_prefix: str
-    expire_at: datetime | None
+    expires_at: datetime | None
     created_at: datetime
     Warning: str = (
         "Copiez cette clé Maintenant. Elle ne sera plus jamais affichée"
