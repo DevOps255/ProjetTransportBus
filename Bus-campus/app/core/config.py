@@ -8,13 +8,16 @@ class Settings(BaseSettings):
     DATABASE_URL_SYNC:str
 
 
-    #configuration de redis
+    # configuration de redis
 
     redis_url: str
-
     # JWT
-
+    
     JWT_SECRET_KEY: str
+    
+    
+    
+    
 
 
     """en developpement vous pouvez toujours importer le module secrets

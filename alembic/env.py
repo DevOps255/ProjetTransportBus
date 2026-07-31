@@ -20,7 +20,12 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+# Ajoute ProjetTransportBus ET Bus-campus au PYTHONPATH
+CURRENT_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(CURRENT_DIR))
+sys.path.insert(0, str(CURRENT_DIR.parent))
+
 
 from sqlmodel import SQLModel
 from app.core.config import settings
@@ -31,6 +36,7 @@ from app.features.tickets.models import Ticket
 from app.features.students.models import Student, DeviceFingerPrint
 from app.features.organizations.models import Organization
 from app.features.payements.models import GatewayPhone, GatewaySmsQueue, Wallet, WalletTransaction
+from app.Auth.models import User, Apikey, RefreshToken
 target_metadata = SQLModel.metadata
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL_SYNC)
 
