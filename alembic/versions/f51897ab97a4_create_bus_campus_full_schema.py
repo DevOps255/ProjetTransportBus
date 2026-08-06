@@ -138,7 +138,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Uuid(), nullable=False),
     sa.Column('org_id', sa.Uuid(), nullable=False),
     sa.Column('student_id', sa.Uuid(), nullable=False),
-    sa.Column('balance_minor_unit', sa.Integer(), nullable=False),
+    sa.Column('balance_minor_units', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['org_id'], ['organizations.id'], ),
