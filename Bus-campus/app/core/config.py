@@ -1,12 +1,12 @@
 # import secrets
 from pydantic_settings import SettingsConfigDict,  BaseSettings
+from typing import List
 
 class Settings(BaseSettings):
 
     DATABASE_URL: str
 
-    DATABASE_URL_SYNC:str
-
+    DATABASE_URL_SYNC: str
 
     # configuration de redis
 
@@ -15,11 +15,6 @@ class Settings(BaseSettings):
     
     JWT_SECRET_KEY: str
     
-    
-    
-    
-
-
     """en developpement vous pouvez toujours importer le module secrets
     si vous n'avez pas configuré un .env.test
     vous passez ensuite cette expression
@@ -48,11 +43,62 @@ class Settings(BaseSettings):
 
     login_max_attempts: int = 5
     login_lockout_minutes: int = 15
-
-
+    
+    #Gemini projects
+    
+    gemini_project_a: str
+    gemini_project_b: str
+    gemini_project_c: str
+    
+    #Gemini keys
+    
+    gemini_key_a: str
+    gemini_key_b: str
+    gemini_key_c: str
+    
+    # Mistral API key
+    Mistral_key: str
+    Mistral_model: str = "mistral-small-latest"
+    
     #cache session redis
 
     session_cache_tll_seconds: int = 300
+    
+    #Indempotence
+    
+    webhook_max_age_seconds: int = 300    
+    idempotency_ttl_seconds: int = 600
+    
+    #ticket de bus 
+    
+    ticket_price: int = 150    
+    ticket_price_minor_units: int = 15_000
+    
+    # Recharge minimum   
+    
+    minimum_recharge: int = 100    
+    minimum_recharge_minor_units: int = 10_000
+    
+    # Gestion du TOTP (Time-based One-Time Password)
+    totp_step_seconds: int = 30
+    totp_valid_window: int = 5
+    totp_max_trip_duration_minutes: int = 120
+    
+    # anti-replay    
+    totp_replay_ttl_seconds: int = 3600
+    
+    #Circuit breaker 
+    circuit_breaker_max_failures: int = 5    
+    circuit_breaker_window_seconds: int = 900
+    
+    # Circuit breaker des  recharges    
+     
+    wallet_circuit_breaker_max_failures: int = 5    
+    wallet_circuit_breaker_window_seconds: int = 900
+    
+    allowed_sms_beneficiaries: List[str] = [
+        ""
+    ]
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -60,5 +106,5 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra = 'ignore'
     )
-
+    
 settings = Settings()

@@ -43,7 +43,7 @@ class Wallet(SQLModel, table=True):
         description="Portefeuille unique par étudiant"
     )
 
-    balance_minor_unit: int = Field(
+    balance_minor_units: int = Field(
         default=0,
         ge=0,
         description="le solde"
