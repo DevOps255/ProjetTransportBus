@@ -4,16 +4,16 @@ from typing import List
 
 class Settings(BaseSettings):
 
-    DATABASE_URL: str
+    DATABASE_URL: str = "sqlite+aiosqlite:///./films.db"
 
-    DATABASE_URL_SYNC: str
+    DATABASE_URL_SYNC: str = "sqlite:///./contacts.db"
 
     # configuration de redis
 
-    redis_url: str
+    redis_url: str = "redis://redis:6379"
     # JWT
     
-    JWT_SECRET_KEY: str
+    JWT_SECRET_KEY: str ="je suis "
     
     """en developpement vous pouvez toujours importer le module secrets
     si vous n'avez pas configuré un .env.test
@@ -46,18 +46,18 @@ class Settings(BaseSettings):
     
     #Gemini projects
     
-    gemini_project_a: str
-    gemini_project_b: str
-    gemini_project_c: str
+    gemini_project_a: str =" "
+    gemini_project_b: str =" "
+    gemini_project_c: str=" "
     
     #Gemini keys
     
-    gemini_key_a: str
-    gemini_key_b: str
-    gemini_key_c: str
+    gemini_key_a: str = ""
+    gemini_key_b: str = ""
+    gemini_key_c: str = ""
     
     # Mistral API key
-    Mistral_key: str
+    Mistral_key: str = ""
     Mistral_model: str = "mistral-small-latest"
     
     #cache session redis

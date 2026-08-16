@@ -11,7 +11,7 @@ def _hash_sms_text(sms_text: str) -> str:
     
     """
     SHA256 du texte brut du SMS normalisé    
-    Utilisé comme clé du niveau 1 d'idempotency.
+    Utilisé comme clé du niveau 1 d'idempotence.
     
     C'est juste pour garantir que le même SMS 
     reçu avec des espaces inutile ou un truc différent 
@@ -50,7 +50,7 @@ def _normalize_reference(reference: str) -> str:
 async def claim_sms_level1(sms_text:str) ->  tuple[bool, str]:
     
     """
-    Idempotency de NIVEAU 1 basée sur le hash du SMS brut.  
+    Idempotence de NIVEAU 1 basée sur le hash du SMS brut.  
     on veux empêcher que le même SMS de paiement soit traité plusieurs fois.
     
     On renvoi (True, sms_hash) si la clé a été réclamée avec succès.    
@@ -85,13 +85,13 @@ async def claim_sms_level1(sms_text:str) ->  tuple[bool, str]:
 async def claim_reference_level2(reference: str)  ->  bool:
     
     """
-    Idempotency de NIVEAU 2 basée sur la référence de transaction.    
+    Idempotence de NIVEAU 2 basée sur la référence de transaction.    
     ceci sera exécuté après le parsing de gemini ou Mistral apres que la 
     référence sera extraite
     
     Contrairement au niveau 1, on ne retourne pas de clé à libérer 
     parce que si la référence est dans Redis, c'est définitif donc ette transaction   
-     a déjà ajouté de l'argent au portfeuille. 
+    a déjà ajouté de l'argent au portfeuille. 
     """   
     normalized = _normalize_reference(reference)
     redis = _get_redis()
@@ -113,11 +113,11 @@ async def claim_reference_level2(reference: str)  ->  bool:
 async def release_sms_level1(sms_hash:str) -> str:
     
     """
-     on libère la clé d'idempotency de niveau 1.    
+     on libère la clé d'idempotence de niveau 1.    
      cette fonction sera appellée si le traitement échoue APRÈS la réclamation du niveau 1    (timeout, erreur base de données) 
      pour permettre un retry légitime du SMS.    
      
-     par contre on ne libère JAMAIS le niveau 2 (référence de transaction).    
+     par contre on ne libère JAMAIS le niveau 2 (référence de transaction). C'est même évident
      
      dès une qu'une référence de transaction est réussie, on la garde pour toujours    
      jusqu'à expiration du TTL.

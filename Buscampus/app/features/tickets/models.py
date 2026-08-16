@@ -49,3 +49,42 @@ class Ticket(SQLModel, table=True):
     cancelled_at: Optional[datetime] = Field(default=None)
     created_at: datetime = Field(default_factory=lambda:datetime.now(timezone.utc))
 
+class Payment(SQLModel, table=True):
+    
+    __tablename__="payments"
+    
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    
+    org_id: uuid.UUID = Field(foreign_key="organizations.id", index=True)
+    
+    ticket_id: uuid.UUID = Field(foreign_key="tickets.id", index=True)
+    
+    students_id: uuid.UUID = Field(foreign_key="student.id", index=True)
+    
+    payment_reference: str = Field(max_length=100,unique=True, index=True)
+    
+    amount: int = Field(ge=0)
+    
+    phone_e164:str = Field(max_length=20)
+    
+    status: str = Field (
+        default="pending", 
+        max_length=20,
+        description="pending - confirmed - refunded - failed"
+        )
+    
+    confirmed_at: datetime | None = Field(default=None)
+    
+    refund_of_payment_id: uuid.UUID | None = Field(
+        default=None,
+        foreign_key="payments.id",
+        description="si ce paiement est un remboursement, on référence le paiement original"
+    )
+    
+    created_at: datetime | None = Field(default_factory=lambda:datetime.now(timezone.utc))
+    
+    
+
+
+
+

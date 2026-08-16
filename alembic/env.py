@@ -28,15 +28,15 @@ sys.path.insert(0, str(CURRENT_DIR.parent))
 
 
 from sqlmodel import SQLModel
-from app.core.config import settings
-from app.features.buses.models import Bus
-from app.features.lines.models import BusLine, BusStop
-from app.features.trips.models import Trip
-from app.features.tickets.models import Ticket
-from app.features.students.models import Student, DeviceFingerPrint
-from app.features.organizations.models import Organization
-from app.features.payements.models import GatewayPhone, GatewaySmsQueue, Wallet, WalletTransaction
-from app.Auth.models import User, Apikey, RefreshToken
+from ProjetTransportBus.Buscampus.app.core.config import settings
+from ProjetTransportBus.Buscampus.app.features.buses.models import Bus
+from ProjetTransportBus.Buscampus.app.features.lines.models import BusLine, BusStop
+from ProjetTransportBus.Buscampus.app.features.trips.models import Trip
+from ProjetTransportBus.Buscampus.app.features.tickets.models import Ticket, Payment
+from ProjetTransportBus.Buscampus.app.features.students.models import Student, DeviceFingerPrint
+from ProjetTransportBus.Buscampus.app.features.organizations.models import Organization
+from ProjetTransportBus.Buscampus.app.features.payements.models import GatewayPhone, GatewaySmsQueue, Wallet, WalletTransaction
+from ProjetTransportBus.Buscampus.app.Auth.models import User, Apikey, RefreshToken
 target_metadata = SQLModel.metadata
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL_SYNC)
 
