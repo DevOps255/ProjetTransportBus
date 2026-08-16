@@ -16,9 +16,8 @@ class WalletOperationFailure(ServiceExecutionFailure):
     pass
     
         
-class PaymentIntegrityError(SmsParsingError):
+class PaymentIntegrityError(ServiceExecutionFailure):
     pass
-    
     
  
  
